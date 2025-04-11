@@ -1,4 +1,5 @@
-﻿using GestiónInventarioBackend.Interfaces;
+﻿using GestiónInventarioBackend.Dtos;
+using GestiónInventarioBackend.Interfaces;
 using GestiónInventarioBackend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -89,5 +90,25 @@ namespace GestiónInventarioBackend.Controllers
             var orders = await _orderService.SearchOrdersByCustomer(searchTerm);
             return Ok(orders);
         }
+
+        [HttpPost("CreateSimple")]
+        public async Task<IActionResult> CreateOrderSimple([FromBody] CreateOrderDto createOrderDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var createdOrder = await _orderService.CreateOrderSimpleAsync(createOrderDto);
+                return CreatedAtAction(nameof(GetOrderById), new { id = createdOrder.Id }, createdOrder);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using GestiónInventarioBackend.Models;
+﻿using GestiónInventarioBackend.Dtos;
+using GestiónInventarioBackend.Models;
 
 namespace GestiónInventarioBackend.Interfaces
 {
@@ -11,5 +12,7 @@ namespace GestiónInventarioBackend.Interfaces
         Task<bool> DeleteOrderAsync(int id);
 
         Task<IEnumerable<Order>> SearchOrdersByCustomer(string searchTerm); // Buscar por RUC o Nombre
+
+        Task<Order> CreateOrderSimpleAsync(CreateOrderDto createOrderDto);
     }
 }

@@ -151,6 +151,10 @@ const ProductList = () => {
                 Agregar Nuevo Producto
             </button>
 
+            <Link to="/orders/create" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 inline-block">
+            Crear Nuevo Pedido
+            </Link>
+
             {isModalOpen && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
