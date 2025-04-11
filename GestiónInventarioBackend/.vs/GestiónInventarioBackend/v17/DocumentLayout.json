@@ -1,0 +1,142 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\source\\repos\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\source\\repos\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\source\\repos\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\source\\repos\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\source\\repos\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\source\\repos\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\controllers\\inventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\controllers\\inventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 360,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Controllers\\ProductsController.cs",
+              "ToolTip": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Controllers\\ProductsController.cs",
+              "ViewState": "AQIAADQAAAAAAAAAAAAAADoAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T22:22:38.543Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Services\\ProductService.cs",
+              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Services\\ProductService.cs",
+              "ToolTip": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Services\\ProductService.cs",
+              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Services\\ProductService.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAACIAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T22:21:29.519Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Services\\AuthService.cs",
+              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Services\\AuthService.cs",
+              "ViewState": "AQIAAHcBAAAAAAAAAAAcwIsBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T04:02:46.607Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Controllers\\AuthController.cs",
+              "ViewState": "AQIAAHcAAAAAAAAAAAAAAIUAAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T20:37:57.687Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Program.cs",
+              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Program.cs",
+              "ToolTip": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Program.cs",
+              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Program.cs",
+              "ViewState": "AQIAAFcAAAAAAAAAAAAAAGwAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T19:48:49.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InventoryController.cs",
+              "DocumentMoniker": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Controllers\\InventoryController.cs",
+              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Controllers\\InventoryController.cs",
+              "ToolTip": "C:\\Users\\SSD\\source\\repos\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Controllers\\InventoryController.cs",
+              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Controllers\\InventoryController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T21:41:46.928Z"
+            }
+          ]
+        },
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
