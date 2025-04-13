@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext'; // Si necesitas autenticación
 import { useDebounce } from "../../Hooks/useDebounce";
 import { useNavigate } from 'react-router-dom';
+import generateInvoicePDF from '../../Pdf/generateInvoicePDF';
 
 const CreateOrderForm = () => {
     const [searchTermCustomer, setSearchTermCustomer] = useState('');
@@ -213,6 +214,10 @@ const CreateOrderForm = () => {
             console.log('Pedido creado exitosamente:', response.data);
             // Aquí podrías redirigir al usuario o mostrar un mensaje de éxito
             // También deberías iniciar la descarga del PDF de la factura
+            generateInvoicePDF(
+                { ...orderData, id: response.data.id, orderDetails: orderDetails }, // Incluye el ID de la orden y los detalles completos
+                selectedCustomer
+            );
         } catch (error) {
             console.error('Error al guardar el pedido:', error);
             alert('Error al guardar el pedido.');

@@ -144,7 +144,7 @@ const ProductList = () => {
                                 <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
                                     <Link to={`/products/${product.id}`} className="text-indigo-600 hover:text-indigo-900 mr-2">Ver</Link>
                                     <Link to={`/products/edit/${product.id}`} className="text-yellow-600 hover:text-yellow-900 mr-2">Editar</Link>
-                                    <button onClick={() => handleDeleteProduct(product.id)} className="text-white hover:text-red-900">Eliminar</button>
+                                    <button onClick={() => handleDeleteProduct(product.id)} className="text-white hover:text-green-400">Eliminar</button>
                                 </td>
                             </tr>
                         ))}
