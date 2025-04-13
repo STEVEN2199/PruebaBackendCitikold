@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\desktop\\react\\pruebabackendcitikold\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\desktop\\react\\pruebabackendcitikold\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\desktop\\react\\pruebabackendcitikold\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\desktop\\react\\pruebabackendcitikold\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\mappers\\customermapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\mappers\\customermapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\desktop\\react\\pruebabackendcitikold\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\dtos\\customerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\dtos\\customerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\desktop\\react\\pruebabackendcitikold\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\context\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,6 +21,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\desktop\\react\\pruebabackendcitikold\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\desktop\\react\\pruebabackendcitikold\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\models\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\models\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|c:\\users\\ssd\\desktop\\react\\pruebabackendcitikold\\gesti\u00F3ninventariobackend\\gesti\u00F3ninventariobackend\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC5A249C-6886-4982-AA72-EDC176766420}|Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend.csproj|solutionrelative:gesti\u00F3ninventariobackend\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 360,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,46 +46,85 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "OrdersController.cs",
-              "DocumentMoniker": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Controllers\\OrdersController.cs",
-              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Controllers\\OrdersController.cs",
-              "ToolTip": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Controllers\\OrdersController.cs",
-              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Controllers\\OrdersController.cs",
-              "ViewState": "AQIAACUAAAAAAAAAAAAAABEAAAApAAAA",
+              "DocumentIndex": 1,
+              "Title": "CustomerMapper.cs",
+              "DocumentMoniker": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Mappers\\CustomerMapper.cs",
+              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Mappers\\CustomerMapper.cs",
+              "ToolTip": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Mappers\\CustomerMapper.cs",
+              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Mappers\\CustomerMapper.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAwAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-11T20:34:12.746Z",
+              "WhenOpened": "2025-04-13T00:18:21.345Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ProductsController.cs",
-              "DocumentMoniker": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Controllers\\ProductsController.cs",
-              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Controllers\\ProductsController.cs",
-              "ToolTip": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Controllers\\ProductsController.cs",
-              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Controllers\\ProductsController.cs",
-              "ViewState": "AQIAAEYAAAAAAAAAAADwv1oAAAAFAAAA",
+              "DocumentIndex": 0,
+              "Title": "CustomersController.cs",
+              "DocumentMoniker": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Controllers\\CustomersController.cs",
+              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Controllers\\CustomersController.cs",
+              "ToolTip": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Controllers\\CustomersController.cs",
+              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Controllers\\CustomersController.cs",
+              "ViewState": "AQIAAHIAAAAAAAAAAAAAAIAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-11T19:35:54.216Z",
+              "WhenOpened": "2025-04-13T00:05:08.717Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "CustomerDto.cs",
+              "DocumentMoniker": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Dtos\\CustomerDto.cs",
+              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Dtos\\CustomerDto.cs",
+              "ToolTip": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Dtos\\CustomerDto.cs",
+              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Dtos\\CustomerDto.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAAABwAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T23:59:16.538Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Customer.cs",
+              "DocumentMoniker": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Models\\Customer.cs",
+              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Models\\Customer.cs",
+              "ToolTip": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Models\\Customer.cs",
+              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Models\\Customer.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAAwCAAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T18:39:35.256Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Models\\Product.cs",
+              "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Models\\Product.cs",
+              "ToolTip": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Models\\Product.cs",
+              "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Models\\Product.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAADwvxoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T19:32:06.316Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Context\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Context\\AppDbContext.cs",
               "ToolTip": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Context\\AppDbContext.cs",
               "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Context\\AppDbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAJAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAABQAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-11T05:12:01.654Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\SSD\\Desktop\\REACT\\PruebaBackendCitikold\\Gesti\u00F3nInventarioBackend\\Gesti\u00F3nInventarioBackend\\Program.cs",
               "RelativeDocumentMoniker": "Gesti\u00F3nInventarioBackend\\Program.cs",
@@ -81,7 +132,8 @@
               "RelativeToolTip": "Gesti\u00F3nInventarioBackend\\Program.cs",
               "ViewState": "AQIAAKIAAAAAAAAAAAAAAIoAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T19:48:49.394Z"
+              "WhenOpened": "2025-04-08T19:48:49.394Z",
+              "EditorCaption": ""
             }
           ]
         },

@@ -30,5 +30,7 @@ namespace GestiónInventarioBackend.Models
         [MaxLength(100)]
         public string? Email { get; set; }
 
+        public List<Order> Orders { get; set; }
+
     }
 }

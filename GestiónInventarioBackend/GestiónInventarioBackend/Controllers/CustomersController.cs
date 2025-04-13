@@ -2,6 +2,9 @@
 using GestiónInventarioBackend.Services;
 using Microsoft.AspNetCore.Mvc;
 using GestiónInventarioBackend.Interfaces;
+using GestiónInventarioBackend.Dtos;
+using GestiónInventarioBackend.Context;
+using GestiónInventarioBackend.Mappers;
 
 namespace GestiónInventarioBackend.Controllers
 {
@@ -10,10 +13,12 @@ namespace GestiónInventarioBackend.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly ICustomerService _customerService;
+        private readonly AppDbContext _context;
 
-        public CustomersController(ICustomerService customerService)
+        public CustomersController(ICustomerService customerService, AppDbContext context)
         {
             _customerService = customerService;
+            _context = context;
         }
 
         [HttpGet]
@@ -108,6 +113,16 @@ namespace GestiónInventarioBackend.Controllers
             {
                 return StatusCode(500, "Error al eliminar el cliente.");
             }
+        }
+
+        [HttpPost("customerDto")]
+        public IActionResult PostCustomerDto(CustomerDto customerDto)
+        {
+            var customer = customerDto.ToCustomer(); // Usar el método de conversión aquí
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+
+            return Ok(customer);//CreatedAtAction(nameof(GetCustomer), new { id = customer.Id }, customer.ToCustomerDto());
         }
     }
 }

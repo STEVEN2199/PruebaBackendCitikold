@@ -10,6 +10,7 @@ import ProductList from './Components/Product/ProductList';
 import ProductDetail from './Components/Product/ProductDetail';
 import EditProductForm from './Components/Product/EditProductForm';    
 import CreateOrderForm from './Components/Order/CreateOrderForm';
+import CreateCustomerForm from './Components/Customers/CreateCustomerForm';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/products/edit/:id" element={<PrivateRoute><EditProductForm /></PrivateRoute>} /> {/* Nueva ruta para editar */}
           {/* Ruta para los detalles del producto */}
           <Route path="/orders/create" element={<PrivateRoute><CreateOrderForm /></PrivateRoute>} />
+          <Route path="/customers/create" element={<PrivateRoute><CreateCustomerForm /></PrivateRoute>} />
           <Route path="/" element={<Navigate to="/login" />} />
           {/* Redirigir a /products por defecto si está autenticado */}
       </Routes>

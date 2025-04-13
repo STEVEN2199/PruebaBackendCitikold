@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext'; // Si necesitas autenticación
+import { useDebounce } from "../../Hooks/useDebounce";
+import { useNavigate } from 'react-router-dom';
 
 const CreateOrderForm = () => {
     const [searchTermCustomer, setSearchTermCustomer] = useState('');
@@ -18,34 +20,45 @@ const CreateOrderForm = () => {
     const [loadingProducts, setLoadingProducts] = useState(false);
     const [errorProducts, setErrorProducts] = useState('');
 
+    const [term, setTerm] = useState("");
+
+    const debouncedTerm = useDebounce(term);
+  
+
     const { authToken } = useAuth(); // Si necesitas el token
+    const navigate = useNavigate(); // Inicializa useNavigate
 
     // Función para buscar clientes
-    const handleSearchCustomer = async (term) => {
-        setSearchTermCustomer(term);
-        if (term.length >= 3) { // Iniciar la búsqueda con al menos 3 caracteres
-            setLoadingCustomers(true);
-            setErrorCustomers('');
-            try {
-                const response = await axios.get(`https://localhost:7193/api/Customers/search?searchTerm=${term}`, {
-                    headers: {
-                        Authorization: `Bearer ${authToken}`, // Si es necesario
-                    },
-                });
-                console.log('Respuesta de búsqueda de clientes:', response.data);
-                //setSearchResultsCustomers([{ id: 999, Nombre: 'PRUEBA', Ruc: '1234567890' }]);
-                setSearchResultsCustomers(response.data);
-            } catch (error) {
-                setErrorCustomers('Error al buscar clientes.');
-                console.error('Error al buscar clientes:', error);
-            } finally {
-                setLoadingCustomers(false);
-            }
-        } else {
-            setSearchResultsCustomers([]);
-            setSelectedCustomer(null);
-        }
-    };
+    // Función para buscar clientes
+  const handleSearchCustomer = async () => {
+    setSearchTermCustomer(term);
+    if (debouncedTerm.length >= 3) {
+      // Iniciar la búsqueda con al menos 3 caracteres
+      setLoadingCustomers(true);
+      setErrorCustomers("");
+      try {
+        const response = await axios.get(
+          `https://localhost:7193/api/Customers/search?searchTerm=${debouncedTerm}`,
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`, // Si es necesario
+            },
+          }
+        );
+        console.log("Respuesta de búsqueda de clientes:", response.data);
+        //setSearchResultsCustomers([{ id: 999, Nombre: 'PRUEBA', Ruc: '1234567890' }]);
+        setSearchResultsCustomers(response.data);
+      } catch (error) {
+        setErrorCustomers("Error al buscar clientes.");
+        console.error("Error al buscar clientes:", error);
+      } finally {
+        setLoadingCustomers(false);
+      }
+    } else {
+      setSearchResultsCustomers([]);
+      setSelectedCustomer(null);
+    }
+  };
 
     // Función para seleccionar un cliente de la lista
     const handleSelectCustomer = (customer) => {
@@ -118,6 +131,7 @@ const CreateOrderForm = () => {
             const newDetail = {
                 productId: parseInt(newOrderDetail.productId, 10),
                 productName: productToAdd.name,
+                description: productToAdd.description,
                 quantity: newOrderDetail.quantity,
                 unitPrice: newOrderDetail.unitPrice,
                 subtotal: newOrderDetail.quantity * newOrderDetail.unitPrice,
@@ -135,6 +149,11 @@ const CreateOrderForm = () => {
         const updatedDetails = orderDetails.filter((_, i) => i !== index);
         setOrderDetails(updatedDetails);
     };
+
+    useEffect(() => {
+        handleSearchCustomer();
+      }, [debouncedTerm]);
+    
 
     // Efecto para calcular el total y el impuesto cada vez que cambian los detalles del pedido
     useEffect(() => {
@@ -170,25 +189,22 @@ const CreateOrderForm = () => {
         }
 
         const orderData = {
-            customerId: selectedCustomer.id,
-            customer: selectedCustomer,
+            customerId: selectedCustomer.id, // Si el backend también espera esto en la raíz
             orderDate: orderDate,
-            orderDetails: orderDetails.map(detail => ({
-                productId: detail.productId,
-                quantity: detail.quantity,
-                unitPrice: detail.unitPrice,
-                subtotal: detail.quantity * detail.unitPrice,
-                order: null, // Si el backend realmente necesita esta propiedad
-            })),
             subtotal: parseFloat(orderDetails.reduce((sum, detail) => sum + detail.subtotal, 0).toFixed(2)),
             iva: parseFloat(taxAmount),
             total: parseFloat(totalAmount),
+            orderDetails: orderDetails.map(detail => ({
+                productId: detail.productId,
+                quantity: detail.quantity,
+            })),
+            
         };
 
         console.log('Datos a enviar al backend:', orderData);
 
         try {
-            const response = await axios.post('https://localhost:7193/api/Orders', orderData, {
+            const response = await axios.post('https://localhost:7193/api/Orders/CreateSimple', orderData, {
                 headers: {
                     Authorization: `Bearer ${authToken}`, // Si es necesario
                     'Content-Type': 'application/json',
@@ -203,121 +219,191 @@ const CreateOrderForm = () => {
         }
     };
 
+
+    const handleResetForm = () => {
+        setSearchTermCustomer('');
+        setSearchResultsCustomers([]);
+        setSelectedCustomer(null);
+        setOrderDate('');
+        setOrderDetails([]);
+        setSearchTermProduct('');
+        setSearchResultsProducts([]);
+        setNewOrderDetail({ productId: '', quantity: 1 });
+        setTotalAmount(0);
+        setTaxAmount(0);
+        setTerm(''); // Reset del término del debounce
+    };
+
+
+    const handleGoBack = () => {
+        navigate(-1); // Navega a la página anterior en el historial
+    };
+
     return (
         <div>
-            <h2>Crear Nuevo Pedido</h2>
+            <h2 className="text-2xl font-semibold mb-4">Crear Nuevo Pedido</h2>
 
             {/* Sección para seleccionar el cliente */}
-            <div>
-                <label htmlFor="searchCustomer">Buscar Cliente (RUC/Nombre):</label>
+            <div className="mb-4">
+                <label htmlFor="searchCustomer" className="block text-white-700 text-sm font-bold mb-2">
+                    Buscar Cliente (RUC/Nombre):
+                </label>
                 <input
                     type="text"
                     id="searchCustomer"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-white-700 leading-tight focus:outline-none focus:shadow-outline"
                     value={searchTermCustomer}
-                    onChange={(e) => handleSearchCustomer(e.target.value)}
+                    onChange={(e) => setTerm(e.target.value)}
                 />
-                {loadingCustomers && <p>Cargando clientes...</p>}
-                {errorCustomers && <p style={{ color: 'red' }}>{errorCustomers}</p>}
+                {loadingCustomers && <p className="text-white-500 text-sm mt-1">Cargando clientes...</p>}
+                {errorCustomers && <p className="text-red-500 text-sm mt-1">{errorCustomers}</p>}
                 {searchResultsCustomers.length > 0 && (
-                    <ul >
-                        {searchResultsCustomers.map(customer => {
-                            console.log('Renderizando cliente:', customer);
-                            return (
-                                <li key={customer.id} onClick={() => handleSelectCustomer(customer)} style={{ cursor: 'pointer' }}>
-                                    {customer.name} ({customer.ruc})
-                                </li>
-                            );
-                        })}
+                    <ul className="bg-green-800 shadow-md rounded mt-1 max-h-48 overflow-y-auto z-10 relative">
+                        {searchResultsCustomers.map(customer => (
+                            <li
+                                key={customer.id}
+                                onClick={() => handleSelectCustomer(customer)}
+                                className="px-4 py-2 hover:bg-gray-800 cursor-pointer"
+                            >
+                                {customer.name} ({customer.ruc})
+                            </li>
+                        ))}
                     </ul>
                 )}
-                {selectedCustomer && <p>Cliente seleccionado: {selectedCustomer.name} ({selectedCustomer.ruc})</p>}
+                {selectedCustomer && <p className="text-green-500 text-sm mt-2">Cliente seleccionado: {selectedCustomer.name} ({selectedCustomer.ruc})</p>}
             </div>
 
             {/* Sección para la fecha del pedido */}
-            <div>
-                <label htmlFor="orderDate">Fecha del Pedido:</label>
+            <div className="mb-4">
+                <label htmlFor="orderDate" className="block text-white-700 text-sm font-bold mb-2">
+                    Fecha del Pedido:
+                </label>
                 <input
                     type="date"
                     id="orderDate"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-white-700 leading-tight focus:outline-none focus:shadow-outline"
                     value={orderDate}
                     onChange={handleOrderDateChange}
                 />
             </div>
 
+
             {/* Sección para agregar detalles del pedido */}
-            <div>
-                <h3>Detalle del Pedido</h3>
-                <div>
-                    <label htmlFor="searchProduct">Buscar Producto:</label>
+            <div className="mb-4">
+                <h3 className="text-xl font-semibold mb-2">Detalle del Pedido</h3>
+                <div className="mb-2">
+                    <label htmlFor="searchProduct" className="block text-white-700 text-sm font-bold mb-2">
+                        Buscar Producto:
+                    </label>
                     <input
                         type="text"
                         id="searchProduct"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-white-700 leading-tight focus:outline-none focus:shadow-outline"
                         value={searchTermProduct}
                         onChange={(e) => handleSearchProduct(e.target.value)}
                     />
-                    {loadingProducts && <p>Cargando productos...</p>}
-                    {errorProducts && <p style={{ color: 'red' }}>{errorProducts}</p>}
+                    {loadingProducts && <p className="text-white-500 text-sm mt-1">Cargando productos...</p>}
+                    {errorProducts && <p className="text-red-500 text-sm mt-1">{errorProducts}</p>}
                     {searchResultsProducts.length > 0 && (
-                        <ul>
+                        <ul className="bg-green shadow-md rounded mt-1 max-h-48 overflow-y-auto z-10 relative">
                             {searchResultsProducts.map(product => (
-                                <li key={product.id} onClick={() => handleSelectProduct(product)} style={{ cursor: 'pointer' }}>
-                                    {product.name} - ${product.price}
+                                <li
+                                    key={product.id}
+                                    onClick={() => handleSelectProduct(product)}
+                                    className="px-4 py-2 hover:bg-green-800 cursor-pointer"
+                                >
+                                    {product.name} - ${product.price} - {product.description}
                                 </li>
                             ))}
                         </ul>
                     )}
                 </div>
                 {newOrderDetail.productId && (
-                    <div>
-                        <label htmlFor="quantity">Cantidad:</label>
-                        <input
-                            type="number"
-                            id="quantity"
-                            value={newOrderDetail.quantity}
-                            onChange={handleQuantityChange}
-                            min="1"
-                        />
-                        <button onClick={handleAddOrderDetail}>Agregar Producto</button>
+                    <div className="flex items-center space-x-4 mb-2">
+                        <div>
+                            <label htmlFor="quantity" className="block text-white-700 text-sm font-bold mb-2">
+                                Cantidad:
+                            </label>
+                            <input
+                                type="number"
+                                id="quantity"
+                                className="shadow appearance-none border rounded w-24 py-2 px-3 text-white-700 leading-tight focus:outline-none focus:shadow-outline "
+                                value={newOrderDetail.quantity}
+                                onChange={handleQuantityChange}
+                                min="1"
+                            />
+                        </div>
+                        <button
+                            onClick={handleAddOrderDetail}
+                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        >
+                            Agregar Producto
+                        </button>
                     </div>
                 )}
 
                 {orderDetails.length > 0 && (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Cantidad</th>
-                                <th>Precio Unitario</th>
-                                <th>Subtotal</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {orderDetails.map((detail, index) => (
-                                <tr key={index}>
-                                    <td>{detail.productName}</td>
-                                    <td>{detail.quantity}</td>
-                                    <td>${detail.unitPrice.toFixed(2)}</td>
-                                    <td>${detail.subtotal.toFixed(2)}</td>
-                                    <td>
-                                        <button onClick={() => handleDeleteOrderDetail(index)}>Eliminar</button>
-                                    </td>
+                    <div className="overflow-x-auto">
+                        <table className="table-auto w-full shadow-md rounded">
+                            <thead className="bg-green-400">
+                                <tr>
+                                    <th className="px-4 py-2">Producto</th>
+                                    <th className="px-4 py-2">Cantidad</th>
+                                    <th className="px-4 py-2">Precio Unitario</th>
+                                    <th className="px-4 py-2">Subtotal</th>
+                                    <th className="px-4 py-2">Acciones</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {orderDetails.map((detail, index) => (
+                                    <tr key={index} className="hover:bg-green-900">
+                                        <td className="border px-4 py-2">{detail.productName}</td>
+                                        <td className="border px-4 py-2">{detail.quantity}</td>
+                                        <td className="border px-4 py-2">${detail.unitPrice.toFixed(2)}</td>
+                                        <td className="border px-4 py-2">${detail.subtotal.toFixed(2)}</td>
+                                        <td className="border px-4 py-2">
+                                            <button
+                                                onClick={() => handleDeleteOrderDetail(index)}
+                                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline text-xs"
+                                            >
+                                                Eliminar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 )}
             </div>
-
             {/* Sección para mostrar el total y el impuesto */}
-            <div>
-                <p>Subtotal: ${orderDetails.reduce((sum, detail) => sum + detail.subtotal, 0).toFixed(2)}</p>
-                <p>{/* Mostrar IGV o IVA según la lógica */}Impuesto: ${taxAmount}</p>
-                <p>Total a Pagar: ${totalAmount}</p>
+            <div className="mt-4 p-4 bg-gray-700 rounded shadow-md">
+                <p className="text-lg"><span className="font-semibold">Subtotal:</span> ${orderDetails.reduce((sum, detail) => sum + detail.subtotal, 0).toFixed(2)}</p>
+                <p className="text-lg"><span className="font-semibold">Impuesto (12%):</span> ${taxAmount}</p>
+                <p className="text-xl font-semibold"><span className="font-bold">Total a Pagar:</span> ${totalAmount}</p>
             </div>
 
             {/* Botón para guardar el pedido */}
-            <button onClick={handleSaveOrder} disabled={loadingCustomers || loadingProducts}>Guardar Pedido</button>
+            <button
+                onClick={handleSaveOrder}
+                disabled={loadingCustomers || loadingProducts || !selectedCustomer || orderDetails.length === 0 || !orderDate}
+                className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 ${loadingCustomers || loadingProducts || !selectedCustomer || orderDetails.length === 0 || !orderDate ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+                Guardar Pedido
+            </button>
+
+            <button
+                    onClick={handleResetForm}
+                    className="bg-blue-300 hover:bg-blue-400 text-white-800 font-bold py-2 px-4 ml-5 rounded focus:outline-none focus:shadow-outline"
+                >
+                    Resetear
+                </button>
+                <button
+                    onClick={handleGoBack}
+                    className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 ml-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                    Regresar
+                </button>
         </div>
     );
 };

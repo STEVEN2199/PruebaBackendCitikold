@@ -43,7 +43,7 @@ namespace GestiónInventarioBackend.Services
                 throw new ArgumentException($"El ID del cliente '{order.CustomerId}' no existe.");
             }
 
-            _context.Orders.Add(order);
+            //_context.Orders.Add(order);
 
             if (order.OrderDetails != null && order.OrderDetails.Any())
             {
@@ -75,6 +75,7 @@ namespace GestiónInventarioBackend.Services
             order.Iva = order.Subtotal * 0.12m; // Usar la tasa de IVA (podrías tenerla configurable)
             order.Total = order.Subtotal + order.Iva;
 
+            _context.Orders.Add(order);
             await _context.SaveChangesAsync();
             return order;
         }
@@ -131,64 +132,65 @@ namespace GestiónInventarioBackend.Services
 
         public async Task<Order> CreateOrderSimpleAsync(CreateOrderDto createOrderDto)
         {
+            if (createOrderDto.OrderDate.Date > DateTime.Now.Date)
+            {
+                throw new ArgumentException("La fecha del pedido no puede ser futura.");
+            }
+
             var customerExists = await _context.Customers.AnyAsync(c => c.Id == createOrderDto.CustomerId);
             if (!customerExists)
             {
                 throw new ArgumentException($"El ID del cliente '{createOrderDto.CustomerId}' no existe.");
             }
 
-            if (createOrderDto.OrderDate > DateTime.Now.Date)
-            {
-                throw new ArgumentException("La fecha del pedido no puede ser futura.");
-            }
-
             var order = new Order
             {
                 CustomerId = createOrderDto.CustomerId,
                 OrderDate = createOrderDto.OrderDate,
-                OrderDetails = new List<OrderDetail>()
+                // Inicializamos Subtotal, Iva y Total; se calcularán al agregar los detalles
+                Subtotal = 0,
+                Iva = 0,
+                Total = 0
             };
 
-            decimal orderSubtotal = 0;
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync(); // Guardamos la orden para obtener su ID
 
-            foreach (var detailDto in createOrderDto.OrderDetails)
+            if (createOrderDto.OrderDetails != null && createOrderDto.OrderDetails.Any())
             {
-                var product = await _productService.GetProductByIdAsync(detailDto.ProductId);
-                if (product == null)
+                foreach (var detailDto in createOrderDto.OrderDetails)
                 {
-                    throw new ArgumentException($"El producto con ID '{detailDto.ProductId}' no existe.");
+                    var product = await _context.Products.FindAsync(detailDto.ProductId);
+                    if (product == null)
+                    {
+                        throw new ArgumentException($"El producto con ID '{detailDto.ProductId}' no existe.");
+                    }
+
+                    if (detailDto.Quantity <= 0) // Asumimos que necesitas enviar la cantidad desde el DTO
+                    {
+                        throw new ArgumentException("La cantidad debe ser mayor a cero.");
+                    }
+
+                    var orderDetail = new OrderDetail
+                    {
+                        OrderId = order.Id, // Usamos el ID de la orden recién creada
+                        ProductId = detailDto.ProductId,
+                        Quantity = detailDto.Quantity, // Asumimos que el DTO contendrá la cantidad
+                        UnitPrice = product.Price,
+                        Subtotal = detailDto.Quantity * product.Price
+                    };
+                    _context.OrderDetails.Add(orderDetail);
+                    product.StockQuantity -= detailDto.Quantity;
+                    _context.Entry(product).State = EntityState.Modified;
                 }
-
-                if (detailDto.Quantity <= 0)
-                {
-                    throw new ArgumentException($"La cantidad para el producto '{detailDto.ProductId}' debe ser mayor a cero.");
-                }
-
-                var orderDetail = new OrderDetail
-                {
-                    ProductId = detailDto.ProductId,
-                    Quantity = detailDto.Quantity,
-                    UnitPrice = product.Price,
-                    Subtotal = detailDto.Quantity * product.Price,
-                    Order = order // Establecer la relación
-                };
-
-                order.OrderDetails.Add(orderDetail);
-                orderSubtotal += orderDetail.Subtotal;
-
-                // Aquí podrías también actualizar el stock si lo deseas,
-                // o hacerlo en otro servicio/método.
-                // product.StockQuantity -= detailDto.Quantity;
-                // _context.Entry(product).State = EntityState.Modified;
             }
 
-            order.Subtotal = orderSubtotal;
-            order.Iva = orderSubtotal * IVARate;
-            order.Total = orderSubtotal + order.Iva;
+            // Recalcular Subtotal, Iva y Total de la orden después de agregar los detalles
+            order.Subtotal = order.OrderDetails.Sum(od => od.Subtotal);
+            order.Iva = order.Subtotal * 0.12m; // Tasa de IVA
+            order.Total = order.Subtotal + order.Iva;
 
-            _context.Orders.Add(order);
             await _context.SaveChangesAsync();
-
             return order;
         }
 

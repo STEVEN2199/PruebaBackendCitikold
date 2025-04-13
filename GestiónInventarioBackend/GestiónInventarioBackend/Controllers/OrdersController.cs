@@ -91,6 +91,7 @@ namespace GestiónInventarioBackend.Controllers
             return Ok(orders);
         }
 
+
         [HttpPost("CreateSimple")]
         public async Task<IActionResult> CreateOrderSimple([FromBody] CreateOrderDto createOrderDto)
         {
@@ -98,7 +99,6 @@ namespace GestiónInventarioBackend.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             try
             {
                 var createdOrder = await _orderService.CreateOrderSimpleAsync(createOrderDto);

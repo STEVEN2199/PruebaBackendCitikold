@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace GestiónInventarioBackend.Models
 {
@@ -11,6 +12,8 @@ namespace GestiónInventarioBackend.Models
 
         [ForeignKey("Order")]
         public int OrderId { get; set; }
+
+        [JsonIgnore]
         public Order Order { get; set; }
 
         [Required(ErrorMessage = "El ID del producto es requerido.")]

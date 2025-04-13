@@ -5,7 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 
 const EditProductForm = () => {
     const { id } = useParams();
-    const [product, setProduct] = useState({ name: '', description: '', price: '' });
+    const [product, setProduct] = useState({ name: '', description: '', price: '', stockQuantity: '' });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const { authToken } = useAuth();
@@ -78,23 +78,81 @@ const EditProductForm = () => {
     }
 
     return (
-        <div>
-            <h2>Editar Producto</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="name">Nombre:</label>
-                    <input type="text" id="name" name="name" value={product.name} onChange={handleChange} required />
+        <div className="container mx-auto p-4">
+            <h2 className="text-2xl font-semibold mb-4">Editar Producto</h2>
+            <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div className="mb-4">
+                    <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
+                        Nombre:
+                    </label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={product.name}
+                        onChange={handleChange}
+                        required
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
                 </div>
-                <div>
-                    <label htmlFor="description">Descripción:</label>
-                    <textarea id="description" name="description" value={product.description} onChange={handleChange} />
+                <div className="mb-4">
+                    <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">
+                        Descripción:
+                    </label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        value={product.description}
+                        onChange={handleChange}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
                 </div>
-                <div>
-                    <label htmlFor="price">Precio:</label>
-                    <input type="number" id="price" name="price" value={product.price} onChange={handleChange} required />
+                <div className="mb-4">
+                    <label htmlFor="price" className="block text-gray-700 text-sm font-bold mb-2">
+                        Precio:
+                    </label>
+                    <input
+                        type="number"
+                        id="price"
+                        name="price"
+                        value={product.price}
+                        onChange={handleChange}
+                        required
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
                 </div>
-                <button type="submit" disabled={loading}>Guardar</button>
-                <button type="button" onClick={handleCancel}>Cancelar</button>
+
+                <div className="mb-4">
+                    <label htmlFor="price" className="block text-gray-700 text-sm font-bold mb-2">
+                        Cantidad:
+                    </label>
+                    <input
+                        type="number"
+                        id="stockQuantity"
+                        name="stockQuantity"
+                        value={product.stockQuantity}
+                        onChange={handleChange}
+                        required
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                </div>
+
+                <div className="flex items-center justify-between">
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    >
+                        Guardar
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleCancel}
+                        className="bg-gray-300 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    >
+                        Cancelar
+                    </button>
+                </div>
             </form>
         </div>
     );

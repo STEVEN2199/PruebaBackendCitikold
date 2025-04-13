@@ -53,12 +53,34 @@ const ProductDetail = () => {
     }
 
     return (
-        <div>
-            <h2>Detalles del Producto</h2>
-            <h3>{product.name}</h3>
-            <p>Descripción: {product.description}</p>
-            <p>Precio: ${product.price}</p>
-            {/* Puedes mostrar más detalles aquí */}
+        <div className="container mx-auto p-4">
+            <h2 className="text-2xl font-semibold mb-4">Detalles del Producto</h2>
+            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h3 className="text-xl font-bold mb-2">{product.name}</h3>
+                <p className="text-gray-700 text-base mb-2">
+                    <span className="font-semibold">Descripción:</span> {product.description || 'No disponible'}
+                </p>
+                <p className="text-green-600 text-lg font-semibold mb-4">
+                    Precio: ${parseFloat(product.price).toFixed(2)}
+                </p>
+                {/* Puedes mostrar más detalles aquí */}
+                {product.stockQuantity !== undefined && (
+                    <p className="text-gray-700 text-sm mb-2">
+                        <span className="font-semibold">Stock:</span> {product.stockQuantity} unidades
+                    </p>
+                )}
+                {/* Ejemplo de más detalles */}
+                {product.createdAt && (
+                    <p className="text-gray-700 text-xs">
+                        <span className="font-semibold">Creado el:</span> {new Date(product.createdAt).toLocaleDateString()}
+                    </p>
+                )}
+                {product.updatedAt && (
+                    <p className="text-gray-700 text-xs">
+                        <span className="font-semibold">Actualizado el:</span> {new Date(product.updatedAt).toLocaleDateString()}
+                    </p>
+                )}
+            </div>
         </div>
     );
 };
