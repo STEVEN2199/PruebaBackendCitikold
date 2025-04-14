@@ -3,6 +3,7 @@ import React, { useState, useContext } from "react"; // Import useContext
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext"; // Import the Context itself
 import apiClient from "../../api/apiClient";
+import backgroundImage from "../../assets/fondo.jpg";
 
 const LoginForm = () => {
   const [userName, setuserName] = useState("");
@@ -38,7 +39,11 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
+    <div className="flex items-center justify-center min-h-screen bg-cover bg-center"
+    style={{
+      backgroundImage: `url(${backgroundImage})`,
+    }}
+    >
             {/* Contenedor principal centrado */}
             <div className="bg-white p-8 rounded-md shadow-md w-full max-w-md">
                 {/* Contenedor con fondo blanco, padding, bordes redondeados y sombra */}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext'; // Si necesitas autenticación
 import { useDebounce } from "../../Hooks/useDebounce";
+import { useDebounceProduct } from "../../Hooks/useDebounceProduct";
 import { useNavigate } from 'react-router-dom';
 import generateInvoicePDF from '../../Pdf/generateInvoicePDF';
 
@@ -24,6 +25,10 @@ const CreateOrderForm = () => {
     const [term, setTerm] = useState("");
 
     const debouncedTerm = useDebounce(term);
+
+    const [termProduct, setTermProduct] = useState("");
+
+    const debouncedTermProduct = useDebounceProduct(termProduct);
   
 
     const { authToken } = useAuth(); // Si necesitas el token
@@ -81,13 +86,13 @@ const CreateOrderForm = () => {
     };
 
     // Función para buscar productos (similar a buscar clientes)
-    const handleSearchProduct = async (term) => {
+    const handleSearchProduct = async () => {
         setSearchTermProduct(term);
-        if (term.length >= 3) {
+        if (debouncedTermProduct.length >= 3) {
             setLoadingProducts(true);
             setErrorProducts('');
             try {
-                const response = await axios.get(`https://localhost:7193/api/Products?name=${term}`, { // Ajusta el endpoint de búsqueda de productos si es diferente
+                const response = await axios.get(`https://localhost:7193/api/Products?name=${debouncedTermProduct}`, { // Ajusta el endpoint de búsqueda de productos si es diferente
                     headers: {
                         Authorization: `Bearer ${authToken}`, // Si es necesario
                     },
@@ -154,6 +159,10 @@ const CreateOrderForm = () => {
     useEffect(() => {
         handleSearchCustomer();
       }, [debouncedTerm]);
+    
+      useEffect(() => {
+        handleSearchProduct();
+      }, [debouncedTermProduct]);
     
 
     // Efecto para calcular el total y el impuesto cada vez que cambian los detalles del pedido
@@ -236,7 +245,8 @@ const CreateOrderForm = () => {
         setNewOrderDetail({ productId: '', quantity: 1 });
         setTotalAmount(0);
         setTaxAmount(0);
-        setTerm(''); // Reset del término del debounce
+        setTerm('');
+        setTermProduct(''); // Reset del término del debounce
     };
 
 
@@ -305,7 +315,7 @@ const CreateOrderForm = () => {
                         id="searchProduct"
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-white-700 leading-tight focus:outline-none focus:shadow-outline"
                         value={searchTermProduct}
-                        onChange={(e) => handleSearchProduct(e.target.value)}
+                        onChange={(e) => setTermProduct(e.target.value)}
                     />
                     {loadingProducts && <p className="text-white-500 text-sm mt-1">Cargando productos...</p>}
                     {errorProducts && <p className="text-red-500 text-sm mt-1">{errorProducts}</p>}

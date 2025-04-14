@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import apiClient from "../../api/apiClient";
+import backgroundImage from "../../assets/fondo.jpg";
 
 const RegistrationForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -47,7 +48,11 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+        }}
+        >
             {/* Contenedor principal centrado */}
             <div className="bg-white p-8 rounded-md shadow-md w-full max-w-md">
                 {/* Contenedor con fondo blanco, padding, bordes redondeados y sombra */}

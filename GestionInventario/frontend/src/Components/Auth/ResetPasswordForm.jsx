@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import backgroundImage from "../../assets/fondo.jpg";
 
 const ResetPasswordForm = () => {
     const [token, setToken] = useState('');
@@ -61,7 +63,11 @@ const ResetPasswordForm = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex items-center justify-center min-h-screen bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${backgroundImage})`,
+            }}
+            >
             <div className="bg-white p-8 rounded-md shadow-md w-full max-w-md">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Restablecer Contraseña</h2>
                 {message && <p className="text-green-500 mb-4 text-sm">{message}</p>}
@@ -110,6 +116,13 @@ const ResetPasswordForm = () => {
                         Restablecer Contraseña
                     </button>
                 </form>
+                <div className="mt-4 text-center">
+                    {/* Contenedor para el enlace con margen superior y texto centrado */}
+                    <p className="text-gray-600 text-sm">
+                        ¿Ya tienes una cuenta? <Link to="/login" className="text-green-500 hover:underline">Inicia sesión aquí</Link>
+                        {/* Enlace con texto verde y subrayado al pasar el ratón */}
+                    </p>
+                </div>
             </div>
         </div>
     );
