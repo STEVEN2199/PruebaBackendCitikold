@@ -89,7 +89,7 @@ const ProductList = () => {
         setLoading(true);
         setError('');
         try {
-            const response = await axios.post('https://localhost:7193/api/Products', newProduct, {
+            const response = await axios.post('https://localhost:7193/api/Products/CreateProduct', newProduct, {
                 headers: {
                     Authorization: `Bearer ${authToken}`,
                     'Content-Type': 'application/json',

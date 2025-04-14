@@ -38,7 +38,7 @@ namespace GestiónInventarioBackend.Controllers
             return Ok(product);
         }
 
-        [HttpPost]
+        [HttpPost("CreateProduct")]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
             if (!ModelState.IsValid)

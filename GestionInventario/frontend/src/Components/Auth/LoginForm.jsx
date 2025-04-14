@@ -38,7 +38,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
             {/* Contenedor principal centrado */}
             <div className="bg-white p-8 rounded-md shadow-md w-full max-w-md">
                 {/* Contenedor con fondo blanco, padding, bordes redondeados y sombra */}
