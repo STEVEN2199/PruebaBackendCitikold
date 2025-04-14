@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import { Link  } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext'; // Para obtener el token
+import apiClient from "../../api/apiClient";
 //import styles from './ProductList.module.css'; // Importa los estilos
 
 const ProductList = () => {
@@ -17,7 +18,7 @@ const ProductList = () => {
         setLoading(true);
         setError('');
         try {
-            const response = await axios.get('https://localhost:7193/api/Products', {
+            const response = await apiClient.get('/Products', {
                 headers: {
                     Authorization: `Bearer ${authToken}`,
                 },
@@ -46,14 +47,14 @@ const ProductList = () => {
             setLoading(true);
             setError('');
             try {
-                await axios.delete(`https://localhost:7193/api/Products/${id}`, {
+                await apiClient.delete(`/Products/${id}`, {
                     headers: {
                         Authorization: `Bearer ${authToken}`,
                     },
                 });
                 console.log(`Producto con ID ${id} eliminado exitosamente.`);
                 // Volver a cargar la lista de productos después de la eliminación
-                const response = await axios.get('https://localhost:7193/api/Products', {
+                const response = await apiClient.get('/Products', {
                     headers: {
                         Authorization: `Bearer ${authToken}`,
                     },
@@ -89,7 +90,7 @@ const ProductList = () => {
         setLoading(true);
         setError('');
         try {
-            const response = await axios.post('https://localhost:7193/api/Products/CreateProduct', newProduct, {
+            const response = await apiClient.post('/Products/CreateProduct', newProduct, {
                 headers: {
                     Authorization: `Bearer ${authToken}`,
                     'Content-Type': 'application/json',

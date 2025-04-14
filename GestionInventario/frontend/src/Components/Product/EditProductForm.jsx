@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import apiClient from "../../api/apiClient";
 
 const EditProductForm = () => {
     const { id } = useParams();
@@ -17,7 +18,7 @@ const EditProductForm = () => {
             setLoading(true);
             setError('');
             try {
-                const response = await axios.get(`https://localhost:7193/api/Products/${id}`, {
+                const response = await apiClient.get(`/Products/${id}`, {
                     headers: {
                         Authorization: `Bearer ${authToken}`,
                     },
@@ -49,7 +50,7 @@ const EditProductForm = () => {
         setLoading(true);
         setError('');
         try {
-            await axios.put(`https://localhost:7193/api/Products/${id}`, product, {
+            await apiClient.put(`/Products/${id}`, product, {
                 headers: {
                     Authorization: `Bearer ${authToken}`,
                     'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
+import apiClient from "../../api/apiClient";
 import { Link } from "react-router-dom";
 import backgroundImage from "../../assets/fondo.jpg";
 
@@ -14,7 +15,7 @@ const ForgotPasswordForm = () => {
         setError('');
 
         try {
-            const response = await axios.post('https://localhost:7193/api/Auth/forgot-password', { email });
+            const response = await apiClient.post("/Auth/forgot-password", { email });
             setMessage(response.data.message || 'Se ha enviado un correo electrónico para restablecer tu contraseña.');
         } catch (error) {
             setError(error.response?.data?.message || 'Error al solicitar el restablecimiento de contraseña. Por favor, inténtalo de nuevo.');

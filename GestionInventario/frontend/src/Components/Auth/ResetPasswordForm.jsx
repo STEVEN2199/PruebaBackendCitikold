@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import apiClient from "../../api/apiClient";
 import backgroundImage from "../../assets/fondo.jpg";
 
 const ResetPasswordForm = () => {
@@ -47,7 +48,7 @@ const ResetPasswordForm = () => {
         const emailFromUrl = searchParams.get('email');
 
         try {
-            const response = await axios.post('https://localhost:7193/api/Auth/reset-password', {
+            const response = await apiClient.post("/Auth/reset-password", {
                 token,
                 email: emailFromUrl,
                 newPassword,

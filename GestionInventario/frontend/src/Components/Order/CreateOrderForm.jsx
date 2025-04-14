@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext'; // Si necesitas autenticación
 import { useDebounce } from "../../Hooks/useDebounce";
 import { useDebounceProduct } from "../../Hooks/useDebounceProduct";
 import { useNavigate } from 'react-router-dom';
 import generateInvoicePDF from '../../Pdf/generateInvoicePDF';
+import apiClient from "../../api/apiClient";
 
 const CreateOrderForm = () => {
     const [searchTermCustomer, setSearchTermCustomer] = useState('');
@@ -43,8 +44,8 @@ const CreateOrderForm = () => {
       setLoadingCustomers(true);
       setErrorCustomers("");
       try {
-        const response = await axios.get(
-          `https://localhost:7193/api/Customers/search?searchTerm=${debouncedTerm}`,
+        const response = await apiClient.get(
+          `/Customers/search?searchTerm=${debouncedTerm}`,
           {
             headers: {
               Authorization: `Bearer ${authToken}`, // Si es necesario
@@ -92,7 +93,7 @@ const CreateOrderForm = () => {
             setLoadingProducts(true);
             setErrorProducts('');
             try {
-                const response = await axios.get(`https://localhost:7193/api/Products?name=${debouncedTermProduct}`, { // Ajusta el endpoint de búsqueda de productos si es diferente
+                const response = await apiClient.get(`/Products?name=${debouncedTermProduct}`, { // Ajusta el endpoint de búsqueda de productos si es diferente
                     headers: {
                         Authorization: `Bearer ${authToken}`, // Si es necesario
                     },
@@ -214,7 +215,7 @@ const CreateOrderForm = () => {
         console.log('Datos a enviar al backend:', orderData);
 
         try {
-            const response = await axios.post('https://localhost:7193/api/Orders/CreateSimple', orderData, {
+            const response = await apiClient.post('/Orders/CreateSimple', orderData, {
                 headers: {
                     Authorization: `Bearer ${authToken}`, // Si es necesario
                     'Content-Type': 'application/json',

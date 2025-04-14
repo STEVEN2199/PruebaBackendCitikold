@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext'; // Si la creación de clientes requiere autenticación
 import { useNavigate } from 'react-router-dom';
+import apiClient from "../../api/apiClient";
 
 const CreateCustomerForm = () => {
     const [name, setName] = useState('');
@@ -29,7 +30,7 @@ const CreateCustomerForm = () => {
                 // Agrega aquí cualquier otra propiedad que el backend espere
             };
 
-            const response = await axios.post('https://localhost:7193/api/Customers/customerDto', newCustomer, {
+            const response = await apiClient.post("/Customers/customerDto", newCustomer, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${authToken}`, // Incluye el token si es necesario
