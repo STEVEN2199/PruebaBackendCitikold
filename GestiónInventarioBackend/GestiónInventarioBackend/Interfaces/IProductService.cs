@@ -10,5 +10,8 @@ namespace GestiónInventarioBackend.Interfaces
         Task<Product> AddProductAsync(Product product);
         Task<bool> UpdateProductAsync(Product product);
         Task<bool> DeleteProductAsync(int id);
+
+        Task<(IEnumerable<Product>, int)> GetPaginatedProductsAsync(int pageNumber, int pageSize, string? sortBy, string? sortDirection);
+        Task<IEnumerable<Product>> SearchProductsWithCacheAsync(string searchTerm);
     }
 }

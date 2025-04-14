@@ -12,5 +12,6 @@ namespace GestiónInventarioBackend.Interfaces
         Task<bool> UpdateCustomerAsync(Customer customer);
         Task<bool> DeleteCustomerAsync(int id);
         Task<bool> CustomerExistsAsync(int id);
+        Task<IEnumerable<Customer>> SearchCustomersWithCacheAsync(string searchTerm);
     }
 }

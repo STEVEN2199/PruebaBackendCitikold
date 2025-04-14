@@ -131,6 +131,7 @@ builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddMemoryCache();
 
 /*builder.Services.AddCors(options =>
 {

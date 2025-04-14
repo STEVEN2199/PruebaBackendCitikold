@@ -88,5 +88,24 @@ namespace GestiónInventarioBackend.Controllers
 
             return NoContent();
         }
+
+
+        [HttpGet("paginated")]
+        public async Task<ActionResult<(IEnumerable<Product>, int)>> GetPaginatedProducts(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string? sortBy = null,
+            [FromQuery] string? sortDirection = null)
+        {
+            var (products, totalCount) = await _productService.GetPaginatedProductsAsync(pageNumber, pageSize, sortBy, sortDirection);
+            return Ok(new { products, totalCount });
+        }
+
+        [HttpGet("search-cached")]
+        public async Task<ActionResult<IEnumerable<Product>>> SearchProductsCached(string name) // Usamos 'name' para coincidir con el query parameter del frontend
+        {
+            var products = await _productService.SearchProductsWithCacheAsync(name);
+            return Ok(products);
+        }
     }
 }

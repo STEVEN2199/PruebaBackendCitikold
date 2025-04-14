@@ -14,17 +14,27 @@ const ProductList = () => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [productToDeleteId, setProductToDeleteId] = useState(null);
 
+    // Estados para la paginación y ordenamiento
+    const [pageNumber, setPageNumber] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+    const [totalProducts, setTotalProducts] = useState(0);
+    const [sortBy, setSortBy] = useState('');
+    const [sortDirection, setSortDirection] = useState('asc');
 
     const fetchProducts = async () => {
         setLoading(true);
         setError('');
         try {
-            const response = await apiClient.get('/Products', {
-                headers: {
-                    Authorization: `Bearer ${authToken}`,
-                },
-            });
-            setProducts(response.data);
+            const response = await apiClient.get(
+                `/Products/paginated?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}&sortDirection=${sortDirection}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${authToken}`,
+                    },
+                }
+            );
+            setProducts(response.data.products);
+            setTotalProducts(response.data.totalCount);
         } catch (error) {
             setError('Error al cargar los productos.');
             console.error('Error al cargar productos:', error);
@@ -40,7 +50,7 @@ const ProductList = () => {
             setError('No estás autenticado para ver los productos.');
             setLoading(false);
         }
-    }, [authToken]);
+    }, [authToken, pageNumber, pageSize, sortBy, sortDirection]);
 
     const handleDeleteProduct = (id) => {
         setProductToDeleteId(id);
@@ -75,6 +85,7 @@ const ProductList = () => {
                 },
             });
             console.log('Producto creado exitosamente:', response.data);
+            setPageNumber(1); // Volver a la primera página después de crear
             fetchProducts();
             closeCreateModal();
         } catch (error) {
@@ -97,6 +108,7 @@ const ProductList = () => {
                     },
                 });
                 console.log(`Producto con ID ${productToDeleteId} eliminado exitosamente.`);
+                setPageNumber(1); // Volver a la primera página después de eliminar
                 fetchProducts();
             } catch (error) {
                 setError('Error al eliminar el producto.');
@@ -113,6 +125,40 @@ const ProductList = () => {
         setProductToDeleteId(null);
     };
 
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= Math.ceil(totalProducts / pageSize)) {
+            setPageNumber(newPage);
+        }
+    };
+
+    const handlePageSizeChange = (e) => {
+        setPageSize(parseInt(e.target.value, 10));
+        setPageNumber(1); // Resetear a la primera página al cambiar el tamaño
+    };
+
+
+    const handleSort = (field) => {
+        if (sortBy === field) {
+            setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortBy(field);
+            setSortDirection('asc');
+        }
+        setPageNumber(1); // Resetear a la primera página al cambiar el orden
+    };
+
+
+    const handleOrder = (field) => {
+        if (sortBy === field) {
+            setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortBy(field);
+            setSortDirection('asc');
+        }
+        setPageNumber(1); // Resetear a la primera página al cambiar el orden
+    };
+
+
     if (loading && !isCreateModalOpen && !isDeleteModalOpen) {
         return <p className="text-center py-4">Cargando productos...</p>;
     }
@@ -125,15 +171,41 @@ const ProductList = () => {
     return (
         <div className="container mx-auto p-4">
             <h2 className="text-3xl font-semibold mb-4">Lista de Productos</h2>
+
+            <div className="mb-4 flex items-center justify-between">
+                <div>
+                    <label htmlFor="pageSize" className="mr-2">Productos por página:</label>
+                    <select id="pageSize" value={pageSize} onChange={handlePageSizeChange} className="border rounded py-1 px-2 text-gray-400">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+                <div>
+                    Página {pageNumber} de {Math.ceil(totalProducts / pageSize)}
+                </div>
+            </div>
+
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white shadow-md rounded-lg">
                     <thead className="bg-gray-100">
-                        <tr>
-                            <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                            <th className="hidden sm:table-cell px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
-                            <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
-                            <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Cantidad</th>
-                            <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                    <tr>
+                            <th onClick={() => handleSort('name')} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                                Nombre {sortBy === 'name' && (sortDirection === 'asc' ? '▲' : '▼')}
+                            </th>
+                            <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Descripción
+                            </th>
+                            <th onClick={() => handleSort('price')} className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                                Precio {sortBy === 'price' && (sortDirection === 'asc' ? '▲' : '▼')}
+                            </th>
+                            <th onClick={() => handleSort('stockQuantity')} className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
+                                Cantidad {sortBy === 'stockQuantity' && (sortDirection === 'asc' ? '▲' : '▼')}
+                            </th>
+                            <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Acciones
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
@@ -159,6 +231,43 @@ const ProductList = () => {
                     </tbody>
                 </table>
             </div>
+
+            <div className="mt-4 flex flex-wrap gap-2 mb-4">
+                <button onClick={() => handleOrder('name')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Ordenar por Nombre {sortBy === 'name' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </button>
+                <button onClick={() => handleOrder('price')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Ordenar por Precio {sortBy === 'price' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </button>
+                <button onClick={() => handleOrder('stockQuantity')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Ordenar por Cantidad {sortBy === 'stockQuantity' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </button>
+                {sortBy && (
+                    <button onClick={() => { setSortBy(''); setSortDirection('asc'); setPageNumber(1); }} className="bg-gray-300 hover:bg-gray-400 text-gray-100 font-bold py-2 px-4 rounded">
+                        Limpiar Orden
+                    </button>
+                )}
+            </div>
+            
+
+            <div className="mt-4 flex justify-between items-center">
+                <button
+                    onClick={() => handlePageChange(pageNumber - 1)}
+                    disabled={pageNumber === 1 || loading}
+                    className="bg-gray-300 hover:bg-gray-400 text-white-800 font-bold py-2 px-4 rounded disabled:opacity-50"
+                >
+                    Anterior
+                </button>
+                <span>Página {pageNumber} de {Math.ceil(totalProducts / pageSize)}</span>
+                <button
+                    onClick={() => handlePageChange(pageNumber + 1)}
+                    disabled={pageNumber === Math.ceil(totalProducts / pageSize) || loading}
+                    className="bg-gray-300 hover:bg-gray-400 text-white-800 font-bold py-2 px-4 rounded disabled:opacity-50"
+                >
+                    Siguiente
+                </button>
+            </div>
+            
             <button onClick={openCreateModal} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 mr-10">
                 Agregar Nuevo Producto
             </button>

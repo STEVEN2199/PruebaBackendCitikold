@@ -2,16 +2,21 @@
 using GestiónInventarioBackend.Interfaces;
 using GestiónInventarioBackend.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace GestiónInventarioBackend.Services
 {
     public class CustomerService : ICustomerService
     {
         private readonly AppDbContext _context; // Reemplaza con el nombre de tu DbContext
+        private readonly IMemoryCache _memoryCache;
+        private const string CustomerSearchCacheKey = "CustomerSearch_";
+        private readonly TimeSpan _cacheExpirationTime = TimeSpan.FromMinutes(5); // Tiempo de expiración de la caché
 
-        public CustomerService(AppDbContext context)
+        public CustomerService(AppDbContext context, IMemoryCache memoryCache)
         {
             _context = context;
+            _memoryCache = memoryCache;
         }
 
         public async Task<IEnumerable<Customer>> GetAllCustomersAsync()
@@ -79,6 +84,30 @@ namespace GestiónInventarioBackend.Services
         public async Task<bool> CustomerExistsAsync(int id)
         {
             return await _context.Customers.AnyAsync(e => e.Id == id);
+        }
+
+        public async Task<IEnumerable<Customer>> SearchCustomersWithCacheAsync(string searchTerm)
+        {
+            string cacheKey = CustomerSearchCacheKey + searchTerm;
+
+            if (_memoryCache.TryGetValue(cacheKey, out IEnumerable<Customer> cachedCustomers))
+            {
+                return cachedCustomers;
+            }
+
+            // Si no está en la caché, busca en la base de datos
+            var customers = await _context.Customers
+                .Where(c => c.Ruc.Contains(searchTerm) || c.Name.Contains(searchTerm))
+                .ToListAsync();
+
+            // Guarda el resultado en la caché
+            var cacheEntryOptions = new MemoryCacheEntryOptions()
+                .SetAbsoluteExpiration(_cacheExpirationTime)
+                .SetSlidingExpiration(TimeSpan.FromMinutes(2)); // Opcional: extiende la expiración si se accede
+
+            _memoryCache.Set(cacheKey, customers, cacheEntryOptions);
+
+            return customers;
         }
     }
 }
