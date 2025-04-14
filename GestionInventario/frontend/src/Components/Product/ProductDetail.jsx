@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-//import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext'; // Para obtener el token
+import { useAuth } from '../../contexts/AuthContext'; // Obteneción del token
 import apiClient from "../../api/apiClient";
 import { useNavigate } from 'react-router-dom';
 
@@ -71,13 +70,13 @@ const ProductDetail = () => {
                 <p className="text-green-600 text-lg font-semibold mb-4">
                     Precio: ${parseFloat(product.price).toFixed(2)}
                 </p>
-                {/* Puedes mostrar más detalles aquí */}
+        
                 {product.stockQuantity !== undefined && (
                     <p className="text-gray-700 text-sm mb-2">
                         <span className="font-semibold">Stock:</span> {product.stockQuantity} unidades
                     </p>
                 )}
-                {/* Ejemplo de más detalles */}
+                
                 {product.createdAt && (
                     <p className="text-gray-700 text-xs">
                         <span className="font-semibold">Creado el:</span> {new Date(product.createdAt).toLocaleDateString()}

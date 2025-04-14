@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         try {
-            const response = await fetch('/api/Auth/refresh-token', { // Ajusta la ruta si es diferente
+            const response = await fetch('/api/Auth/refresh-token', { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,8 +48,8 @@ export const AuthProvider = ({ children }) => {
 
             if (response.ok) {
                 const data = await response.json();
-                const newAccessToken = data.accessToken; // Asegúrate del nombre de la propiedad
-                const newRefreshToken = data.refreshToken; // Asegúrate del nombre de la propiedad (puede ser el mismo)
+                const newAccessToken = data.accessToken; 
+                const newRefreshToken = data.refreshToken; 
 
                 setAuthToken(newAccessToken);
                 setRefreshToken(newRefreshToken);
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
                 setLoading(false);
                 return true;
             } else {
-                // El refresh token no es válido o ha expirado
+                
                 logout(); // Limpiar la sesión
                 setLoading(false);
                 return false;
@@ -72,17 +72,17 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // Verificar el token al cargar la aplicación (opcional)
+    // Verifica el token al cargar la aplicación 
     useEffect(() => {
         const checkToken = async () => {
             setLoading(true);
             if (authToken) {
-                // Aquí podrías hacer una petición al backend para validar el token
+                
                 // Por ahora, asumimos que si hay un token en localStorage, es válido
                 setIsAuthenticated(true);
                 setLoading(false);
             } else if (refreshToken) {
-                // Intentar refrescar el token si no hay un accessToken pero sí un refreshToken
+                // Intenta refrescar el token si no hay un accessToken pero sí un refreshToken
                 await refreshTokenFn();
             } else {
                 setIsAuthenticated(false);
@@ -101,11 +101,6 @@ export const AuthProvider = ({ children }) => {
         loading,
     };
 
-    /*return (
-        <AuthContext.Provider value={value}>
-            {!loading && children}
-        </AuthContext.Provider>
-    );*/
 
     return (
         <AuthContext.Provider value={value}>
@@ -118,4 +113,4 @@ export const useAuth = () => {
     return useContext(AuthContext);
 };
 
-export { AuthContext }; // Exporta AuthContext como una named export
+export { AuthContext }; 

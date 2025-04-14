@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { SidebarContext } from "./Sidebar";
-import { Link } from "react-router-dom"; // Importa Link
+import { Link } from "react-router-dom"; 
 
 export default function SidebarItem({ icon, text, active, alert, to, onClick }) {
   const { expanded } = useContext(SidebarContext);

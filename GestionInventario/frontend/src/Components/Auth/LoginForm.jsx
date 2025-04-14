@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react"; // Import useContext
-//import axios from "axios";
+import React, { useState, useContext } from "react"; 
 import { useNavigate, Link } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext"; // Import the Context itself
+import { AuthContext } from "../../contexts/AuthContext"; 
 import apiClient from "../../api/apiClient";
 import backgroundImage from "../../assets/fondo.jpg";
 
@@ -10,7 +9,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // Use useContext to get the login function
+  const { login } = useContext(AuthContext); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +20,7 @@ const LoginForm = () => {
         userName,
         password,
       });
-      //const { token } = response.data.message;
+
       console.log(response.data.message);
       login(response.data.message); // Call the login function from the context
       navigate("/products");

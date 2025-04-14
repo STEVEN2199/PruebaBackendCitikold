@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//import axios from 'axios';
 import apiClient from "../../api/apiClient";
 import { Link } from "react-router-dom";
 import backgroundImage from "../../assets/fondo.jpg";

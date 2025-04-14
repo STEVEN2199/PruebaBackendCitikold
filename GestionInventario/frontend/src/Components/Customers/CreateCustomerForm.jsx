@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-//import axios from 'axios';
-import { useAuth } from '../../contexts/AuthContext'; // Si la creación de clientes requiere autenticación
+import { useAuth } from '../../contexts/AuthContext'; // Creación de clientes requiere autenticación
 import { useNavigate } from 'react-router-dom';
 import apiClient from "../../api/apiClient";
 
@@ -27,18 +26,18 @@ const CreateCustomerForm = () => {
                 email: email,
                 cellphoneNumber: cellphoneNumber,
                 address: address,
-                // Agrega aquí cualquier otra propiedad que el backend espere
+                
             };
 
             const response = await apiClient.post("/Customers/customerDto", newCustomer, {
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${authToken}`, // Incluye el token si es necesario
+                    Authorization: `Bearer ${authToken}`, // Inclusión del token 
                 },
             });
 
             console.log('Cliente creado exitosamente:', response.data);
-            // Puedes mostrar un mensaje de éxito o redirigir a otra página
+            
             navigate('/products'); // Redirigir a la lista de clientes
         } catch (error) {
             setError('Error al crear el cliente.');
@@ -53,7 +52,7 @@ const CreateCustomerForm = () => {
     };
 
     const handleCancel = () => {
-        navigate('/products'); // Regresar a la lista de clientes
+        navigate('/products'); 
     };
 
     const handleReset = () => {

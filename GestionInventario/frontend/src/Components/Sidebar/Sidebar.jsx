@@ -14,7 +14,7 @@ export default function Sidebar({ children }) {
     const token = localStorage.getItem('authToken');
     if (token) {
       try {
-        // Decodificar el token JWT (asumiendo que es un JWT estándar)
+        // Decodificación del token JWT (JWT estándar)
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
@@ -27,7 +27,7 @@ export default function Sidebar({ children }) {
         const nameClaim = payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] || '';
 
         setUserName(`${firstName} ${lastName}`.trim() || nameClaim);
-        setUserFullName(`${firstName} ${lastName}`.trim() || nameClaim); // Usamos el mismo para el span por ahora
+        setUserFullName(`${firstName} ${lastName}`.trim() || nameClaim); 
       } catch (error) {
         console.error("Error al decodificar el token:", error);
         setUserName('Usuario Desconocido');

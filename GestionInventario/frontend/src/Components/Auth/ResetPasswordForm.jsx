@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-//import axios from 'axios';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import apiClient from "../../api/apiClient";
@@ -12,7 +11,7 @@ const ResetPasswordForm = () => {
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const { token: tokenFromParams } = useParams(); // Intenta obtener el token de los parámetros de la ruta (/reset-password/:token)
+    const { token: tokenFromParams } = useParams(); // Obteneción del token de los parámetros de la ruta (/reset-password/:token)
     const [searchParams] = useSearchParams(); // Para leer los query parameters (?token=...)
 
     useEffect(() => {

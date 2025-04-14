@@ -1,13 +1,13 @@
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import logoImage from '../assets/citikold.png';
-//import generateInvoicePDF from '../../Pdf/generateInvoicePDF';
+
 
 const generateInvoicePDF = (orderData, customer) => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
     const textColor = '#000';
-    const primaryColor = '#7dcea0'; // Un rosa similar al de tu imagen
+    const primaryColor = '#7dcea0'; 
     const margin = 15;
 
     // Agregar imagen
@@ -15,10 +15,8 @@ const generateInvoicePDF = (orderData, customer) => {
     const logoHeight = (logoWidth / (4/ 1));    //Calcula la altura manteniendo la proporción
     doc.addImage(logoImage, 'PNG', margin, margin, logoWidth, logoHeight);
 
-    // Logo (simulado)
     doc.setFontSize(20);
     doc.setTextColor(primaryColor);
-    //doc.text('LOGO', margin, margin + 10);
 
     // Invoice Title
     doc.setFontSize(26);
@@ -70,8 +68,8 @@ const generateInvoicePDF = (orderData, customer) => {
             ...item,
             unitPrice: parseFloat(item.unitPrice).toFixed(2),
             subtotal: parseFloat(item.subtotal).toFixed(2),
-            taxRate: '12.00', // Asegúrate de tener la lógica real de impuestos
-            discountRate: '0.00', // Asegúrate de tener la lógica real de descuentos
+            taxRate: '12.00', 
+            discountRate: '0.00', 
         })),
         startY: 110,
         margin: { left: margin, right: margin },
@@ -88,7 +86,7 @@ const generateInvoicePDF = (orderData, customer) => {
 
     const finalY = doc.lastAutoTable.finalY + 10;
 
-    // Payment Instruction (simulado)
+    // Payment Instruction 
     doc.setFontSize(12);
     doc.setTextColor('#777');
     doc.text('Payment instruction', margin, finalY + 10);
@@ -107,10 +105,10 @@ const generateInvoicePDF = (orderData, customer) => {
     doc.text(`${parseFloat(orderData.subtotal).toFixed(2)}`, pageWidth - margin - doc.getTextWidth(`${parseFloat(orderData.subtotal).toFixed(2)}`), currentY);
     currentY += lineHeight;
     doc.text(`Discount, USD:`, startXTotals, currentY);
-    doc.text(`0.00`, pageWidth - margin - doc.getTextWidth(`0.00`), currentY); // Reemplaza con el descuento real
+    doc.text(`0.00`, pageWidth - margin - doc.getTextWidth(`0.00`), currentY); 
     currentY += lineHeight;
     doc.text(`Shipping Cost, USD:`, startXTotals, currentY);
-    doc.text(`0.00`, pageWidth - margin - doc.getTextWidth(`0.00`), currentY); // Reemplaza con el costo de envío real
+    doc.text(`0.00`, pageWidth - margin - doc.getTextWidth(`0.00`), currentY); 
     currentY += lineHeight;
     doc.text(`Sales Tax, USD:`, startXTotals, currentY);
     doc.text(`${parseFloat(orderData.iva).toFixed(2)}`, pageWidth - margin - doc.getTextWidth(`${parseFloat(orderData.iva).toFixed(2)}`), currentY);
@@ -123,12 +121,12 @@ const generateInvoicePDF = (orderData, customer) => {
     doc.setFontSize(12);
     doc.setTextColor('#777');
     doc.text(`Amount paid, USD:`, startXTotals, currentY);
-    doc.text(`0.00`, pageWidth - margin - doc.getTextWidth(`0.00`), currentY); // Reemplaza con el monto pagado real
+    doc.text(`0.00`, pageWidth - margin - doc.getTextWidth(`0.00`), currentY); 
     currentY += lineHeight + 2;
     doc.setFontSize(14);
     doc.setTextColor(primaryColor);
     doc.text(`Balance Due, USD:`, startXTotals, currentY);
-    doc.text(`${parseFloat(orderData.total).toFixed(2)}`, pageWidth - margin - doc.getTextWidth(`${parseFloat(orderData.total).toFixed(2)}`), currentY); // Reemplaza con el saldo real
+    doc.text(`${parseFloat(orderData.total).toFixed(2)}`, pageWidth - margin - doc.getTextWidth(`${parseFloat(orderData.total).toFixed(2)}`), currentY); 
 
     // Save the PDF
     doc.save(`invoice-${orderData.id || new Date().getTime()}.pdf`);
