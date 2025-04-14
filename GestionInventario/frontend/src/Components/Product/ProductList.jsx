@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-//import axios from 'axios';
 import { Link  } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext'; // Para obtener el token
+import { useAuth } from '../../contexts/AuthContext';
 import apiClient from "../../api/apiClient";
-//import styles from './ProductList.module.css'; // Importa los estilos
+
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const { authToken } = useAuth();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [newProduct, setNewProduct] = useState({ name: '', description: '', price: '', stockQuantity: '' });
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [productToDeleteId, setProductToDeleteId] = useState(null);
 
 
     const fetchProducts = async () => {
@@ -41,41 +42,18 @@ const ProductList = () => {
         }
     }, [authToken]);
 
-
-    const handleDeleteProduct = async (id) => {
-        if (window.confirm('¿Estás seguro de que deseas eliminar este producto?')) {
-            setLoading(true);
-            setError('');
-            try {
-                await apiClient.delete(`/Products/${id}`, {
-                    headers: {
-                        Authorization: `Bearer ${authToken}`,
-                    },
-                });
-                console.log(`Producto con ID ${id} eliminado exitosamente.`);
-                // Volver a cargar la lista de productos después de la eliminación
-                const response = await apiClient.get('/Products', {
-                    headers: {
-                        Authorization: `Bearer ${authToken}`,
-                    },
-                });
-                setProducts(response.data);
-            } catch (error) {
-                setError('Error al eliminar el producto.');
-                console.error('Error al eliminar el producto:', error);
-            } finally {
-                setLoading(false);
-            }
-        }
+    const handleDeleteProduct = (id) => {
+        setProductToDeleteId(id);
+        setIsDeleteModalOpen(true);
     };
 
-    const openModal = () => {
-        setIsModalOpen(true);
-        setNewProduct({ name: '', description: '', price: '', stockQuantity: '' }); // Resetear el formulario
+    const openCreateModal = () => {
+        setIsCreateModalOpen(true);
+        setNewProduct({ name: '', description: '', price: '', stockQuantity: '' });
     };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
+    const closeCreateModal = () => {
+        setIsCreateModalOpen(false);
     };
 
     const handleInputChange = (e) => {
@@ -97,8 +75,8 @@ const ProductList = () => {
                 },
             });
             console.log('Producto creado exitosamente:', response.data);
-            fetchProducts(); // Ahora 'fetchProducts' está definida en este alcance
-            closeModal(); // Cerrar el modal después de la creación exitosa
+            fetchProducts();
+            closeCreateModal();
         } catch (error) {
             setError('Error al crear el producto.');
             console.error('Error al crear el producto:', error);
@@ -107,13 +85,42 @@ const ProductList = () => {
         }
     };
 
-    if (loading && !isModalOpen) {
+    const confirmDeleteProduct = async () => {
+        if (productToDeleteId) {
+            setLoading(true);
+            setError('');
+            setIsDeleteModalOpen(false);
+            try {
+                await apiClient.delete(`/Products/${productToDeleteId}`, {
+                    headers: {
+                        Authorization: `Bearer ${authToken}`,
+                    },
+                });
+                console.log(`Producto con ID ${productToDeleteId} eliminado exitosamente.`);
+                fetchProducts();
+            } catch (error) {
+                setError('Error al eliminar el producto.');
+                console.error('Error al eliminar el producto:', error);
+            } finally {
+                setLoading(false);
+                setProductToDeleteId(null);
+            }
+        }
+    };
+
+    const cancelDeleteProduct = () => {
+        setIsDeleteModalOpen(false);
+        setProductToDeleteId(null);
+    };
+
+    if (loading && !isCreateModalOpen && !isDeleteModalOpen) {
         return <p className="text-center py-4">Cargando productos...</p>;
     }
 
     if (error) {
         return <p className="text-red-500 py-4">{error}</p>;
     }
+
 
     return (
         <div className="container mx-auto p-4">
@@ -152,7 +159,7 @@ const ProductList = () => {
                     </tbody>
                 </table>
             </div>
-            <button onClick={openModal} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 mr-10">
+            <button onClick={openCreateModal} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 mr-10">
                 Agregar Nuevo Producto
             </button>
 
@@ -164,8 +171,8 @@ const ProductList = () => {
             Crear Nuevo Cliente
             </Link>
 
-            {isModalOpen && (
-                <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+            {isCreateModalOpen && (
+                <div className="fixed top-0 left-0 w-full h-full bg-[rgba(107,114,128,0.5)] flex justify-center items-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
                         <h3 className="text-xl font-semibold mb-4 text-gray-800">Agregar Nuevo Producto</h3>
                         <form>
@@ -191,11 +198,28 @@ const ProductList = () => {
                                 <button type="button" onClick={handleCreateProduct} disabled={loading} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">
                                     Guardar
                                 </button>
-                                <button type="button" onClick={closeModal} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                <button type="button" onClick={closeCreateModal} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                     Cancelar
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {isDeleteModalOpen && (
+                <div className="fixed top-0 left-0 w-full h-full bg-[rgba(107,114,128,0.5)] flex justify-center items-center z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
+                        <h3 className="text-xl font-semibold mb-4 text-gray-800">Confirmar Eliminación</h3>
+                        <p className="mb-4 text-gray-700">¿Estás seguro de que deseas eliminar este producto?</p>
+                        <div className="flex justify-end">
+                            <button onClick={confirmDeleteProduct} disabled={loading} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">
+                                Eliminar
+                            </button>
+                            <button onClick={cancelDeleteProduct} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                Cancelar
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

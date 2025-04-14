@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext'; // Para obtener el token
 import apiClient from "../../api/apiClient";
+import { useNavigate } from 'react-router-dom';
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -10,6 +11,8 @@ const ProductDetail = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const { authToken } = useAuth();
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProductDetail = async () => {
@@ -53,6 +56,10 @@ const ProductDetail = () => {
         return <p>Producto no encontrado.</p>;
     }
 
+    const handleGoBack = () => {
+        navigate(-1); // Navega a la página anterior en el historial
+    };
+
     return (
         <div className="container mx-auto p-4">
             <h2 className="text-2xl font-semibold mb-4">Detalles del Producto</h2>
@@ -81,6 +88,13 @@ const ProductDetail = () => {
                         <span className="font-semibold">Actualizado el:</span> {new Date(product.updatedAt).toLocaleDateString()}
                     </p>
                 )}
+
+                <button
+                    onClick={handleGoBack}
+                    className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 ml-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                    Regresar
+                </button>
             </div>
         </div>
     );
