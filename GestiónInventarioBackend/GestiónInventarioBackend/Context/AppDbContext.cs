@@ -18,6 +18,6 @@ namespace GestiónInventarioBackend.Context
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
-        public DbSet<Customer> Customers { get; set; } // Agrega esta línea
+        public DbSet<Customer> Customers { get; set; }
     }
 }

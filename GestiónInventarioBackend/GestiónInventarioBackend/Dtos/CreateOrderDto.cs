@@ -13,7 +13,7 @@ namespace GestiónInventarioBackend.Dtos
 
         public decimal Subtotal { get; set; }
 
-        public decimal Iva { get; set; } // IVA para Ecuador
+        public decimal Iva { get; set; } 
 
         public decimal Total { get; set; }
 

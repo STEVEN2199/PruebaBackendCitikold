@@ -4,7 +4,7 @@
     {
         public bool IsSucceed { get; set; }
         public string Message { get; set; }
-        public string RefreshToken { get; set; }  // Nuevo campo
+        public string RefreshToken { get; set; }  
 
     }
 }

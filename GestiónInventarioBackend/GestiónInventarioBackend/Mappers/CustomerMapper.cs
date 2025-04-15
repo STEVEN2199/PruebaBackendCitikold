@@ -9,7 +9,7 @@ namespace GestiónInventarioBackend.Mappers
         {
             return new Customer
             {
-                // No asignes el Id aquí
+                
                 Id = customerDto.Id,
                 Name = customerDto.Name,
                 Ruc = customerDto.Ruc,

@@ -16,7 +16,7 @@ namespace GestiónInventarioBackend.Models
 
         [Required(ErrorMessage = "El precio del producto es requerido.")]
         [Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor a cero.")]
-        [Column(TypeName = "decimal(18, 2)")] // Especifica el tipo de dato para el precio
+        [Column(TypeName = "decimal(18, 2)")] 
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = "La cantidad en stock es requerida.")]

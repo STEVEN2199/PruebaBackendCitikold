@@ -38,9 +38,9 @@ namespace GestiónInventarioBackend.Services
                 }
                 catch (Exception ex)
                 {
-                    // Aquí podrías loggear el error o manejarlo de otra manera
+                    
                     Console.WriteLine($"Error sending email to {toEmail}: {ex.Message}");
-                    throw; // Re-lanza la excepción para que el llamador sepa que falló
+                    throw; 
                 }
             }
         }

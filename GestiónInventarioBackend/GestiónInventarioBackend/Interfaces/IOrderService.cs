@@ -11,7 +11,7 @@ namespace GestiónInventarioBackend.Interfaces
         Task<Order?> UpdateOrderAsync(int id, Order order);
         Task<bool> DeleteOrderAsync(int id);
 
-        Task<IEnumerable<Order>> SearchOrdersByCustomer(string searchTerm); // Buscar por RUC o Nombre
+        Task<IEnumerable<Order>> SearchOrdersByCustomer(string searchTerm); // Búsqueda por RUC o Nombre
 
         Task<Order> CreateOrderSimpleAsync(CreateOrderDto createOrderDto);
     }

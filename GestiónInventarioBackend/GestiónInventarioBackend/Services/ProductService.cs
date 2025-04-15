@@ -42,10 +42,10 @@ namespace GestiónInventarioBackend.Services
             var existingProduct = await _context.Products.FindAsync(product.Id);
             if (existingProduct == null)
             {
-                return false; // O lanzar una excepción indicando que el producto no existe
+                return false; 
             }
 
-            // Actualizar las propiedades de la entidad existente con los valores del 'product' que viene del frontend
+            
             _context.Entry(existingProduct).CurrentValues.SetValues(product);
 
             try
@@ -55,7 +55,7 @@ namespace GestiónInventarioBackend.Services
             }
             catch (Exception ex)
             {
-                // Log del error
+                
                 Console.WriteLine($"Error al actualizar el producto: {ex.Message}");
                 return false;
             }
@@ -79,7 +79,7 @@ namespace GestiónInventarioBackend.Services
         {
             var query = _context.Products.AsQueryable();
 
-            // Ordenamiento
+            
             if (!string.IsNullOrEmpty(sortBy))
             {
                 if (sortBy.ToLower() == "name")
@@ -94,14 +94,14 @@ namespace GestiónInventarioBackend.Services
                 {
                     query = sortDirection?.ToLower() == "desc" ? query.OrderByDescending(p => p.StockQuantity) : query.OrderBy(p => p.StockQuantity);
                 }
-                // Puedes agregar más criterios de ordenamiento aquí
+                
             }
             else
             {
-                query = query.OrderBy(p => p.Id); // Ordenamiento por defecto
+                query = query.OrderBy(p => p.Id); 
             }
 
-            // Paginación
+            
             var totalCount = await query.CountAsync();
             var products = await query
                 .Skip((pageNumber - 1) * pageSize)
@@ -129,7 +129,7 @@ namespace GestiónInventarioBackend.Services
             // Guarda el resultado en la caché
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(_cacheExpirationTime)
-                .SetSlidingExpiration(TimeSpan.FromMinutes(2)); // Opcional: extiende la expiración si se accede
+                .SetSlidingExpiration(TimeSpan.FromMinutes(2)); 
 
             _memoryCache.Set(cacheKey, products, cacheEntryOptions);
 

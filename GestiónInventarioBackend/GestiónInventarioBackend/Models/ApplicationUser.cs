@@ -7,8 +7,8 @@ namespace GestiónInventarioBackend.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public string RefreshToken { get; set; } = string.Empty;  // Nuevo campo
+        public string RefreshToken { get; set; } = string.Empty;  
         public DateTime RefreshTokenExpiryTime { get; set; } // Expiración del Refresh Token
-        public int Age { get; set; }  // Nuevo campo Age
+        public int Age { get; set; } 
     }
 }

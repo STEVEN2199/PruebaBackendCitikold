@@ -18,8 +18,8 @@ namespace GestiónInventarioBackend.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
-        private readonly SignInManager<ApplicationUser> _signInManager; // Inyecta SignInManager
-        private readonly IEmailService _emailService; // Inyecta el servicio de correo
+        private readonly SignInManager<ApplicationUser> _signInManager; 
+        private readonly IEmailService _emailService; 
 
         public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, 
             IConfiguration configuration, SignInManager<ApplicationUser> signInManager, IEmailService emailService)

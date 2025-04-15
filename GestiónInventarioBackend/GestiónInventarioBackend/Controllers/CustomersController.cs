@@ -118,14 +118,14 @@ namespace GestiónInventarioBackend.Controllers
         [HttpPost("customerDto")]
         public IActionResult PostCustomerDto(CustomerDto customerDto)
         {
-            var customer = customerDto.ToCustomer(); // Usar el método de conversión aquí
+            var customer = customerDto.ToCustomer(); 
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
-            return Ok(customer);//CreatedAtAction(nameof(GetCustomer), new { id = customer.Id }, customer.ToCustomerDto());
+            return Ok(customer);
         }
 
-        // Nuevo endpoint para la búsqueda con caché
+        
         [HttpGet("search-cached")]
         public async Task<ActionResult<IEnumerable<Customer>>> SearchCustomersCached(string searchTerm)
         {

@@ -20,8 +20,6 @@ var connectionString = builder.Configuration.GetConnectionString("Connection");
 //Registrar servicio para la conexion
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
-// Add services to the container.
-
 // Add Identity
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole>()
@@ -37,6 +35,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = true;
     options.SignIn.RequireConfirmedEmail = false;
+
     // Otras configuraciones
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15); // Tiempo de bloqueo
     options.Lockout.MaxFailedAccessAttempts = 5; // Número de intentos fallidos antes del bloqueo
@@ -71,8 +70,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Inject app Dependencies (Dependency Injection)
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IEmailService, SmtpEmailService>(); // Ya deberías tener esto
-builder.Services.AddScoped<IInventoryService, InventoryService>(); // Registra el servicio de inventario
+builder.Services.AddScoped<IEmailService, SmtpEmailService>(); 
 builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddControllers();
@@ -122,17 +120,19 @@ builder.Services.AddAuthorization(options =>
 
 // Inject app Dependencies (Dependency Injection)
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IEmailService, SmtpEmailService>(); // Registra el servicio de correo
+builder.Services.AddScoped<IEmailService, SmtpEmailService>(); 
 
 // Inject app Dependencies (Dependency Injection)
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IEmailService, SmtpEmailService>();
-builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddMemoryCache();
 
+
+/*Otra forma de agregar los cors*/
 /*builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
@@ -148,7 +148,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       builder =>
                       {
-                          builder.WithOrigins("http://localhost:5173") // Reemplaza con la URL de tu frontend
+                          builder.WithOrigins("http://localhost:5173") // Reemplazar con la URL del frontend
                                  .AllowAnyMethod()
                                  .AllowAnyHeader();
                       });
@@ -164,11 +164,9 @@ if (app.Environment.IsDevelopment())
 }
 
 
-//app.UseRouting(); // Implícito con app.MapControllers() en algunos templates más nuevos
-
 app.UseCors(MyAllowSpecificOrigins);
 
-//app.UseCors();
+//app.UseCors(); // Utilizar con cors normal
 
 app.UseAuthentication();
 

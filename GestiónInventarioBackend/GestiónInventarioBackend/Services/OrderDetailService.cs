@@ -8,9 +8,9 @@ namespace GestiónInventarioBackend.Services
     public class OrderDetailService : IOrderDetailService
     {
         private readonly AppDbContext _context;
-        private readonly IInventoryService _inventoryService; // Para validar stock
+        private readonly IInventoryService _inventoryService; 
 
-        // Tasa de IVA en Ecuador (ejemplo: 12%)
+        // Tasa de IVA 
         private const decimal IVARate = 0.12m;
 
         public OrderDetailService(AppDbContext context, IInventoryService inventoryService)
@@ -79,7 +79,7 @@ namespace GestiónInventarioBackend.Services
                 throw new ArgumentException("La cantidad debe ser mayor a cero.");
             }
 
-            // Validar stock al actualizar (considerando la cantidad original)
+           
             if (orderDetail.Quantity - originalQuantity > product.StockQuantity)
             {
                 throw new ArgumentException("La nueva cantidad excede el stock disponible.");
@@ -87,7 +87,7 @@ namespace GestiónInventarioBackend.Services
 
             existingOrderDetail.ProductId = orderDetail.ProductId;
             existingOrderDetail.Quantity = orderDetail.Quantity;
-            existingOrderDetail.UnitPrice = product.Price; // Mantener el precio actual del producto
+            existingOrderDetail.UnitPrice = product.Price; 
             existingOrderDetail.Subtotal = existingOrderDetail.Quantity * existingOrderDetail.UnitPrice;
 
             await _context.SaveChangesAsync();

@@ -10,9 +10,9 @@ namespace GestiónInventarioBackend.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El ID del cliente es requerido.")]
-        [ForeignKey("Customer")] // Especifica la clave foránea
+        [ForeignKey("Customer")] 
         public int CustomerId { get; set; }
-        public Customer Customer { get; set; } // Propiedad de navegación al cliente
+        public Customer Customer { get; set; } 
 
 
         [Required(ErrorMessage = "La fecha del pedido es requerida.")]
@@ -22,7 +22,7 @@ namespace GestiónInventarioBackend.Models
 
         public decimal Subtotal { get; set; }
 
-        public decimal Iva { get; set; } // IVA para Ecuador
+        public decimal Iva { get; set; } 
 
         public decimal Total { get; set; }
 

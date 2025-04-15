@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GestiónInventarioBackend.Controllers
 {
 
-    [Authorize] // Asegura que solo los usuarios autenticados puedan acceder a estos endpoints
+    [Authorize] 
     [ApiController]
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
@@ -65,7 +65,7 @@ namespace GestiónInventarioBackend.Controllers
 
             if (!await _productService.UpdateProductAsync(product))
             {
-                return NotFound(); // O StatusCode(500, "Error al actualizar el producto");
+                return NotFound(); 
             }
 
             return NoContent();
@@ -102,7 +102,7 @@ namespace GestiónInventarioBackend.Controllers
         }
 
         [HttpGet("search-cached")]
-        public async Task<ActionResult<IEnumerable<Product>>> SearchProductsCached(string name) // Usamos 'name' para coincidir con el query parameter del frontend
+        public async Task<ActionResult<IEnumerable<Product>>> SearchProductsCached(string name) 
         {
             var products = await _productService.SearchProductsWithCacheAsync(name);
             return Ok(products);

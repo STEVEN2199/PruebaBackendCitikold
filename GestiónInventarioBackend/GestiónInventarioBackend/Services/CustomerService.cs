@@ -8,7 +8,7 @@ namespace GestiónInventarioBackend.Services
 {
     public class CustomerService : ICustomerService
     {
-        private readonly AppDbContext _context; // Reemplaza con el nombre de tu DbContext
+        private readonly AppDbContext _context; 
         private readonly IMemoryCache _memoryCache;
         private const string CustomerSearchCacheKey = "CustomerSearch_";
         private readonly TimeSpan _cacheExpirationTime = TimeSpan.FromMinutes(5); // Tiempo de expiración de la caché
@@ -103,7 +103,7 @@ namespace GestiónInventarioBackend.Services
             // Guarda el resultado en la caché
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(_cacheExpirationTime)
-                .SetSlidingExpiration(TimeSpan.FromMinutes(2)); // Opcional: extiende la expiración si se accede
+                .SetSlidingExpiration(TimeSpan.FromMinutes(2)); 
 
             _memoryCache.Set(cacheKey, customers, cacheEntryOptions);
 
